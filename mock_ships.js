@@ -17,7 +17,7 @@ const mockShips = [
     name: "Petrol Voyager",
     type: "Oil Tanker",
     status: "Loading",
-    lat: -51.0,
+    lat: 51.0,
     lon: -10.0,
     speed: 18.2,
     course: 270,
