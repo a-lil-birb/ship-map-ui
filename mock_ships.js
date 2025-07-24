@@ -10,7 +10,8 @@ const mockShips = [
     course: 145,
     icon: "🛳️",
     color: "#3498db",
-    emissions: [45, 12, 8]
+    emissions: [45, 12, 8],
+    containers: ["CTN-1001", "CTN-1002"]
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ const mockShips = [
     course: 270,
     icon: "⛴️",
     color: "#e74c3c",
-    emissions: [62, 18, 15]
+    emissions: [62, 18, 15],
+    containers: ["CTN-2001", "CTN-2002"]
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ const mockShips = [
     course: 80,
     icon: "🚢",
     color: "#2ecc71",
-    emissions: [38, 10, 7]
+    emissions: [38, 10, 7],
+    containers: ["CTN-3001"]
   },
   {
     id: 4,
@@ -49,6 +52,7 @@ const mockShips = [
     course: 0,
     icon: "⛵",
     color: "#9b59b6",
-    emissions: [5, 1, 0.5]
+    emissions: [5, 1, 0.5],
+    containers: ["CTN-4001"]
   }
 ];

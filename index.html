@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Maritime Shipping Tracker</title>
+  <title>Container Shipping Tracker</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -18,59 +18,107 @@
       
       <!-- Dashboard Sidebar -->
       <div class="col-md-4 p-3 bg-light d-flex flex-column" style="height: 100vh; overflow-y: auto;">
-        <h2 class="mb-4">🌊 Maritime Tracker</h2>
+        <h2 class="mb-4">📦 Container Tracker</h2>
         
-        <!-- Ship Detail Panel (Initially hidden) -->
-        <div id="ship-detail" class="card mb-3 d-none">
+        <!-- Container Detail Panel -->
+        <div id="container-detail" class="card mb-3 d-none">
           <div class="card-body">
             <button id="close-detail" class="btn btn-sm btn-close float-end"></button>
-            <h4 id="ship-name" class="mb-0">Ship Name</h4>
-            <div id="ship-icon" class="display-4 mb-2"></div>
-            <div class="row mb-2">
+            <h4 id="container-id" class="mb-0">CTN-0000</h4>
+            <div class="row mb-3">
               <div class="col-6">
                 <small class="text-muted">Type</small>
-                <div id="ship-type" class="fw-bold">-</div>
+                <div id="container-type" class="fw-bold">-</div>
               </div>
               <div class="col-6">
                 <small class="text-muted">Status</small>
-                <div id="ship-status" class="fw-bold">-</div>
+                <div id="container-status" class="fw-bold">-</div>
               </div>
             </div>
+            
+            <!-- Ship Carrier Info -->
+            <div class="card mb-2 bg-light">
+              <div class="card-body py-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <small class="text-muted">Carried by</small>
+                    <div id="ship-name" class="fw-bold">-</div>
+                  </div>
+                  <button id="focus-ship" class="btn btn-sm btn-outline-primary">
+                    Show Ship
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Environmental Impact -->
+            <h6>Environmental Impact</h6>
             <div class="row mb-2">
               <div class="col-6">
-                <small class="text-muted">Speed</small>
-                <div id="ship-speed" class="fw-bold">-</div>
+                <small class="text-muted">CO₂ per km</small>
+                <div id="container-co2" class="fw-bold">-</div>
               </div>
               <div class="col-6">
-                <small class="text-muted">Course</small>
-                <div id="ship-course" class="fw-bold">-</div>
+                <small class="text-muted">Cold Chain Penalty</small>
+                <div id="cold-chain-penalty" class="fw-bold">-</div>
               </div>
             </div>
+            <canvas id="container-chart"></canvas>
+            
+            <!-- Goods Information -->
             <hr>
-            <h6>Environmental Impact</h6>
-            <canvas id="ship-chart"></canvas>
+            <h6>Cargo Contents</h6>
+            <div id="goods-details">
+              <div class="d-flex justify-content-between mb-1">
+                <span id="goods-description">-</span>
+                <span id="goods-condition" class="badge">-</span>
+              </div>
+              <div class="progress mb-2" style="height: 5px;">
+                <div id="perish-progress" class="progress-bar" role="progressbar"></div>
+              </div>
+              <small class="text-muted">
+                Perishability: <span id="perish-status">Stable</span>
+              </small>
+            </div>
+            
             <div class="mt-3">
               <small class="text-muted">Last Updated</small>
-              <div id="ship-updated" class="text-muted">-</div>
+              <div id="container-updated" class="text-muted">-</div>
             </div>
           </div>
         </div>
         
-        <!-- Default Dashboard Content -->
+        <!-- Default Container List -->
         <div id="dashboard-content">
           <div class="card mb-3">
             <div class="card-body">
-              <h5>Vessel Metrics</h5>
-              <canvas id="emissionsChart"></canvas>
+              <h5>Container Fleet</h5>
+              <div class="input-group mb-3">
+                <input type="text" id="container-search" class="form-control" placeholder="Search containers...">
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+              <div class="d-flex mb-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="filter-reefer" checked>
+                  <label class="form-check-label" for="filter-reefer">Reefer</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="filter-dry" checked>
+                  <label class="form-check-label" for="filter-dry">Dry</label>
+                </div>
+              </div>
+              <ul id="container-list" class="list-group">
+                <!-- Containers will appear here -->
+              </ul>
             </div>
           </div>
           
           <div class="card">
             <div class="card-body">
-              <h5>Active Ships</h5>
-              <ul id="ship-list" class="list-group">
-                <!-- Ships will appear here -->
-              </ul>
+              <h5>Total Emissions</h5>
+              <canvas id="emissionsChart"></canvas>
             </div>
           </div>
         </div>
@@ -78,9 +126,13 @@
     </div>
   </div>
 
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="mock_ships.js"></script>
+  <script src="mock_containers.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
