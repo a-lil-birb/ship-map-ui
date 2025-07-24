@@ -246,7 +246,7 @@ setInterval(() => {
   });
   
   // Refresh UI if container detail is open
-  if (!containerDetail.classList.contains('d-none') {
+  if (!containerDetail.classList.contains('d-none')) {
     showContainerDetails(selectedContainer);
   }
 }, 5000);
