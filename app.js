@@ -49,7 +49,10 @@ mockShips.forEach(ship => {
   marker.bindPopup(`
     <b>${ship.name}</b><br>
     Type: ${ship.type}<br>
-    Containers: ${ship.containers.length}
+    Containers: ${ship.containers.length}<br>
+    Status: ${ship.status}<br><br>
+    Location: ${ship.lat}, ${ship.lon}<br>
+    Speed: ${ship.speed} kn
   `);
 });
 
